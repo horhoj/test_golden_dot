@@ -4,7 +4,8 @@ import { delay } from '../../utils/delay';
 import { DataItem } from '../../types/dataItem';
 import { SLICE_NAME } from './types';
 
-const CACHE_LS_KEY_NAME = 'cache_name';
+// const CACHE_LS_KEY_NAME = 'cache_name';
+
 //ОБЯЗАТЕЛЬНО ДЕЛАЕМ ЗАДЕРЖКУ, что бы нас не забанили за большое кол-во запросов в секунду!!!!
 //ТАК как мы ограничены 5 запросами в секунду, то лучше не делать больше 5 запросов в секунду,
 // следовательно, задержка должна быть минимум 200 миллисекунд
@@ -14,10 +15,10 @@ export const getDataFromServer = createAsyncThunk(
   `${SLICE_NAME}/getDataFromServer`,
   async () => {
     //чтобы не дергать АПИ кэшируем результат в LS (ТОЛЬКО ДЛЯ РЕЖИМА РАЗРАБОТКИ!!!)
-    const cache = localStorage.getItem(CACHE_LS_KEY_NAME);
-    if (cache) {
-      return JSON.parse(cache);
-    }
+    // const cache = localStorage.getItem(CACHE_LS_KEY_NAME);
+    // if (cache) {
+    //   return JSON.parse(cache);
+    // }
 
     //сначала для запроса используем базовый URL
     let url = 'https://www.cbr-xml-daily.ru/daily_json.js';
@@ -44,7 +45,7 @@ export const getDataFromServer = createAsyncThunk(
     }
 
     //чтобы не дергать АПИ кэшируем результат в LS (ТОЛЬКО ДЛЯ РЕЖИМА РАЗРАБОТКИ!!!)
-    localStorage.setItem(CACHE_LS_KEY_NAME, JSON.stringify(result));
+    // localStorage.setItem(CACHE_LS_KEY_NAME, JSON.stringify(result));
 
     return result;
   },

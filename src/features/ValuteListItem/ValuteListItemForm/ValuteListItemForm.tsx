@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../../store/hooks';
 import { dataSlice } from '../../../store/data';

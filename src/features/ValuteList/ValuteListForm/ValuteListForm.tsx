@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { dataSlice } from '../../../store/data';
-import { getValuteList } from '../../../helpers/dataHelpers';
 import { getRoutePath } from '../../../router';
 import { appSlice } from '../../../store/app';
-import { getExchangeDiff } from './helpers';
+import { getExchangeDiff, getValuteList } from './helpers';
 
 export const ValuteListForm: FC = () => {
   const dispatch = useAppDispatch();
