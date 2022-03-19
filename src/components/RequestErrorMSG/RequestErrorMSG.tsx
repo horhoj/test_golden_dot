@@ -11,7 +11,7 @@ export const RequestErrorMSG: FC<RequestErrorMSGProps> = ({
   title,
 }) => {
   return (
-    <div className={'msg-error'}>
+    <div className="alert-danger p-2 rounded">
       {title ? <div>{title}</div> : null}
       {requestError.responseData ? (
         <div>{requestError.responseData}</div>

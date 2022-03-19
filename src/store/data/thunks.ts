@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosRequestConfig } from 'axios';
 import { delay } from '../../utils/delay';
+import { DataItem } from '../../types/dataItem';
 import { SLICE_NAME } from './types';
 
 const CACHE_LS_KEY_NAME = 'cache_name';
-const REQUEST_DELAY = 300;
+const REQUEST_DELAY = 200;
 
 export const getDataFromServer = createAsyncThunk(
   `${SLICE_NAME}/getDataFromServer`,
@@ -18,7 +19,7 @@ export const getDataFromServer = createAsyncThunk(
     //сначала для запроса используем базовый URL
     let url = 'https://www.cbr-xml-daily.ru/daily_json.js';
     //в данном массиве будет храниться список за последние 10 дней ТОРГОВ
-    const result = [];
+    const result: DataItem[] = [];
 
     //запросы на получение данных за последние 10 дней ТОРГОВ делаем ПООЧЕРЕДНО!!!
     //так как торги идут не каждый день и единственный способ узнать какой день торгов был предыдущим,
@@ -30,7 +31,7 @@ export const getDataFromServer = createAsyncThunk(
         method: 'get',
       };
       //выполняем запрос
-      const response = await axios.request(requestConfig);
+      const response = await axios.request<DataItem>(requestConfig);
       //пушим результат в массив с результатами
       result.push(response.data);
       // получаем новый URL (добавляем название протокола, так как иначе будет редирект и повторный запрос)

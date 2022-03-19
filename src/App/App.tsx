@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { Router } from '../router';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { dataSlice } from '../store/data';
-import styles from './App.module.scss';
+import { RequestErrorMSG } from '../components/RequestErrorMSG';
 import { Spinner } from './Spinner';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const getDataFromServerRequestError = useAppSelector(
+    dataSlice.selectors.getRequestError,
+  );
 
   useEffect(() => {
     dispatch(dataSlice.thunks.getDataFromServer());
@@ -15,8 +18,16 @@ export const App: React.FC = () => {
   return (
     <>
       <Spinner />
-      <div className={styles.wrap}>
-        <Router />
+      <div className="container">
+        {getDataFromServerRequestError ? (
+          <RequestErrorMSG
+            title={'Не удалось загрузить данные по валютам'}
+            requestError={getDataFromServerRequestError}
+          />
+        ) : null}
+        <div className="p-2">
+          <Router />
+        </div>
       </div>
     </>
   );

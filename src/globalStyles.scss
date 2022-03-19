@@ -1,8 +1,18 @@
-*,
-*::before,
-*::after {
-  font-family: Roboto, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import "bootstrap/scss/bootstrap";
+
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.text-green {
+  color: limegreen !important;
+}
+
+.text-red {
+  color: red !important;
+}
+
+body {
+  min-width: 400px;
 }
