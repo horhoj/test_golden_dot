@@ -1,10 +1,13 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { dataSlice } from '../../../store/data';
 import { getValuteList } from '../../../helpers/dataHelpers';
+import { getRoutePath } from '../../../router';
+import { appSlice } from '../../../store/app';
 import { getExchangeDiff } from './helpers';
 
 export const ValuteListForm: FC = () => {
+  const dispatch = useAppDispatch();
   const data = useAppSelector(dataSlice.selectors.getDataList);
 
   if (data === null) {
@@ -14,6 +17,11 @@ export const ValuteListForm: FC = () => {
   const todayData = data[0];
 
   const todayValuteData = getValuteList(todayData);
+
+  const handleValuteRowClick = (id: string) => {
+    const path = getRoutePath('ValuteListItemPage', id);
+    dispatch(appSlice.actions.redirect(path));
+  };
 
   return (
     <div>
@@ -45,6 +53,7 @@ export const ValuteListForm: FC = () => {
                 key={todayValuteItem.ID}
                 title={`${todayValuteItem.Nominal} ${todayValuteItem.Name}`}
                 className="cursor-pointer"
+                onClick={() => handleValuteRowClick(todayValuteItem.CharCode)}
               >
                 <td>{index + 1}</td>
                 <td>{todayValuteItem.CharCode}</td>

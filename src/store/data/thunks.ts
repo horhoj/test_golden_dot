@@ -5,6 +5,9 @@ import { DataItem } from '../../types/dataItem';
 import { SLICE_NAME } from './types';
 
 const CACHE_LS_KEY_NAME = 'cache_name';
+//ОБЯЗАТЕЛЬНО ДЕЛАЕМ ЗАДЕРЖКУ, что бы нас не забанили за большое кол-во запросов в секунду!!!!
+//ТАК как мы ограничены 5 запросами в секунду, то лучше не делать больше 5 запросов в секунду,
+// следовательно, задержка должна быть минимум 200 миллисекунд
 const REQUEST_DELAY = 200;
 
 export const getDataFromServer = createAsyncThunk(
